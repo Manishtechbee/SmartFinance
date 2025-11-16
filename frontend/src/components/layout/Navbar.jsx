@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, BarChart3, SunMoon } from "lucide-react";
 import { Button } from "../ui/button";
 import { toast } from "react-toastify";
+import UserMenu from "../ui/userMenu";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,20 +16,18 @@ export default function Navbar() {
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
     { name: "Dashboard", path: "/dashboard" },
-    { name: "Transactions", path: "/transactions" },
-    { name: "Budget", path: "/budget" },
+    
     { name: "Goals", path: "/goals" },
     { name: "Reports", path: "/reports" },
-    { name: "Investments", path: "/investments" },
   ];
 
   const isActive = (path) => location.pathname === path;
 
   const handleThemeSwitch = () => toast.info("Theme switching coming soon!");
-  const handleLogout = () => toast.success("Logged out successfully!");
+  
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm ">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
@@ -50,7 +49,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-5">
             {navLinks.slice(0, 6).map((link) => (
               <Link
                 key={link.path}
@@ -67,10 +66,10 @@ export default function Navbar() {
           </div>
 
           {/* Right Section: Theme & Auth */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3">
             <button
               onClick={handleThemeSwitch}
-              className="text-gray-600 mx-5 hover:text-blue-600 transition"
+              className="text-gray-600 mx-5 mr-0 hover:text-blue-600 transition"
             >
               <SunMoon className="w-6 h-6" />
             </button>
@@ -82,64 +81,21 @@ export default function Navbar() {
                   Login
                 </Button>
               </Link>
-              <Link to="/register">
+              <Link to="/signup">
                 <Button className="bg-gray-900 hover:bg-gray-800 text-white">
                   Signup
                 </Button>
               </Link>
+              <UserMenu/>
             </div>
+            
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gray-600"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          
+          
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200 shadow-md px-4 py-4 space-y-3">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`block py-2 text-sm ${
-                isActive(link.path) ? "text-gray-900 font-semibold" : "text-gray-600"
-              }`}
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </Link>
-          ))}
-
-          <div className="pt-4 space-y-2">
-            <button
-              onClick={() => {
-                handleThemeSwitch();
-                setIsOpen(false);
-              }}
-              className="w-full text-blue-600 font-semibold text-left"
-            >
-              Switch Theme
-            </button>
-
-            <Link to="/login" onClick={() => setIsOpen(false)}>
-              <Button variant="outline" className="w-full">
-                Login
-              </Button>
-            </Link>
-            <Link to="/register" onClick={() => setIsOpen(false)}>
-              <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white">
-                Signup
-              </Button>
-            </Link>
-          </div>
-        </div>
-      )}
+      
     </header>
   );
 }

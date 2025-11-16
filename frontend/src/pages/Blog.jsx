@@ -6,8 +6,10 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Input } from '../components/ui/input';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
+import { useNavigate } from 'react-router-dom';
 
 export function Blog({ navigateTo }) {
+  const navigate= useNavigate();
   const featuredPost = {
     id: 1,
     title: '10 Smart Ways to Save Money in 2024',
@@ -105,7 +107,7 @@ export function Blog({ navigateTo }) {
         <div className="container mx-auto px-4 lg:px-8">
           <Card 
             className="max-w-5xl mx-auto border-gray-200 overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
-            onClick={() => navigateTo('blog-article', featuredPost.id)}
+            onClick={() => navigate('/blogarticle', featuredPost.id)}
           >
             <div className="grid lg:grid-cols-2">
               <div className="aspect-video lg:aspect-square">
@@ -135,7 +137,7 @@ export function Blog({ navigateTo }) {
                   </div>
                 </div>
 
-                <Button className="w-fit bg-gray-900 text-white hover:bg-gray-800">
+                <Button className="w-fit bg-gray-900 text-white hover:bg-gray-800" onClick={() => navigate('/blogarticle', featuredPost.id)}>
                   Read Article
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -154,6 +156,7 @@ export function Blog({ navigateTo }) {
                 key={category}
                 variant="outline"
                 className="border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white"
+                
               >
                 {category}
               </Button>
@@ -170,7 +173,7 @@ export function Blog({ navigateTo }) {
               <Card
                 key={post.id}
                 className="border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => navigateTo('blog-article', post.id)}
+                onClick={() => navigate('/blogarticle', post.id)}
               >
                 <div className="aspect-video">
                   <ImageWithFallback

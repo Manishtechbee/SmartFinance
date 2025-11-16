@@ -7,6 +7,7 @@ import { CardContent } from '../components/ui/CardContent';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import pic from "../assets/hero.jpg"
 import Footer from '../components/layout/Footer';
+import Navbar from '../components/layout/Navbar';
 
 export default function Home({ navigateTo }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -65,6 +66,8 @@ export default function Home({ navigateTo }) {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + demoScreenshots.length) % demoScreenshots.length);
 
   return (
+    <>
+    <Navbar/>
     <div className="bg-gray-50">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-gray-100 to-gray-50 py-20 lg:py-32"
@@ -187,12 +190,12 @@ export default function Home({ navigateTo }) {
             <Card key={i} className="bg-gray-800 border-gray-700">
               <CardContent className="p-6">
                 <div className="flex gap-1 mb-4">{[...Array(t.rating)].map((_, idx) => <Star key={idx} className="h-5 w-5 fill-yellow-500 text-yellow-500" />)}</div>
-                <p className="text-gray-300 mb-6">"{t.feedback}"</p>
+                <p className="text-gray-500 mb-6">"{t.feedback}"</p>
                 <div className="flex items-center gap-3">
                   <ImageWithFallback src={t.image} alt={t.name} className="h-12 w-12 rounded-full object-cover" />
                   <div>
                     <div className="text-white">{t.name}</div>
-                    <div className="text-gray-400">{t.role}</div>
+                    <div className="text-gray-600">{t.role}</div>
                   </div>
                 </div>
               </CardContent>
@@ -259,12 +262,13 @@ export default function Home({ navigateTo }) {
       <section className="py-20 bg-gradient-to-r from-gray-700 to-gray-900 text-white text-center">
         <h2 className="text-3xl font-bold mb-4">Ready to take control of your finances?</h2>
         <p className="mb-8 text-gray-200 max-w-2xl mx-auto">Start your free trial today and experience the power of AI-driven finance management.</p>
-        <Button onClick={() => navigate('/register')} size="lg" className="bg-gray-900 text-white hover:bg-slate-900 ">
+        <Button onClick={() => navigate('/dashboard')} size="lg" className="bg-gray-900 text-white hover:bg-slate-900 ">
           Get Started Free
         </Button>
       </section>
 
       <Footer/>
     </div>
+    </>
   );
 }

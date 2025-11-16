@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const app = express();
-
+const User = require("./models/User");
 
 
 const PORT = 5000;
@@ -18,31 +18,76 @@ const readUsers = () => JSON.parse(fs.readFileSync(usersFile, 'utf-8'));
 const saveUsers = (users) => fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
 
 // Login Endpoint
-app.post('/api/login', (req, res) => {
+// Login Endpoint
+app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
-  const users = readUsers();
 
-  const user = users.find(u => u.email === email && u.password === password);
-  if(user) {
-    res.json({ success: true, message: 'Login Successful!', user });
-  } else {
-    res.status(401).json({ success: false, message: 'Invalid email or password' });
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(401).json({ success: false, message: "Invalid email or password" });
+
+    const isMatch = await user.matchPassword(password);
+    if (!isMatch) return res.status(401).json({ success: false, message: "Invalid email or password" });
+
+    // Set loggedIn to true
+    user.loggedin = true;
+    await user.save();
+
+    res.json({
+      success: true,
+      message: "Login Successful!",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        loggedIn: user.loggedIn,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
-// Signup Endpoint
-app.post('/api/signup', (req, res) => {
-  const { name, email, password } = req.body;
-  const users = readUsers();
 
-  if(users.find(u => u.email === email)) {
-    return res.status(400).json({ success: false, message: 'Email already exists' });
+app.post("/api/logout", async (req, res) => {
+  const { userId } = req.body; // or get from token/session
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+    user.loggedin = false;
+    await user.save();
+
+    res.json({ success: true, message: "Logout successful" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
+});
 
-  const newUser = { id: users.length + 1, name, email, password };
-  users.push(newUser);
-  saveUsers(users);
-  res.json({ success: true, message: 'User registered successfully', user: newUser });
+
+
+// Signup Endpoint
+app.post("/api/signup", async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    if (!name || !email || !password) {
+      return res.status(400).json({ success: false, message: "All fields are required" });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ success: false, message: "Email already exists" });
+    }
+
+    // Create new user
+    const newUser = await User.create({ name, email, password });
+    res.status(201).json({ success: true, message: "User registered successfully", user: newUser });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 });
 
 
@@ -93,13 +138,38 @@ app.post("/api/chat", async (req, res) => {
 
 
 
-const connectDB = require('./db');
+const connectDB = require('./config/db');
+const userRoutes = require("./routes/userRoute");
 
 connectDB();
 
 app.use(express.json());
 
 app.get('/', (req, res) => res.send('API Running'));
+
+
+
+
+
+
+
+// Routes
+app.use("/api/users", userRoutes);
+
+
+
+
+
+
+
+
+
+
+const accountRoutes = require("./routes/accounts");
+const transactionRoutes = require("./routes/transactions");
+
+app.use("/api/accounts", accountRoutes);
+app.use("/api/transactions", transactionRoutes);
 
 
 

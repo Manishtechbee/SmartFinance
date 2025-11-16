@@ -11,12 +11,14 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [name, setName] = useState('');
+
   const navigate = useNavigate();
 
    const handleSignup = async (e) => {
     e.preventDefault();
 
-    if ( !email || !password || !confirmPassword) {
+    if ( !name || !email || !password || !confirmPassword) {
       toast.error('Please fill in all fields');
       return;
     }
@@ -59,7 +61,7 @@ export default function Signup() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-lg bg-gray-50 shadow-2xl rounded-3xl p-12 md:p-16 relative">
-        <h2 className="text-4xl font-extrabold text-gray-800 mb-5 text-center tracking-tight">
+        <h2 className="text-4xl font-bold text-gray-800 mb-5 text-center tracking-tight">
           Create Account
         </h2>
         <p className="text-center text-sm text-gray-600 mb-8">
@@ -67,6 +69,17 @@ export default function Signup() {
         </p>
 
         <form onSubmit={handleSignup} className="flex flex-col gap-6">
+          <div className="flex flex-col">
+  <label className="text-gray-700 mb-2 font-medium">Name</label>
+  <input
+    type="text"
+    placeholder="Enter your name"
+    className="px-5 py-3 rounded-2xl border border-gray-300 bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+  />
+</div>
+
           <div className="flex flex-col">
             <label className="text-gray-700 mb-2 font-medium">Email</label>
             <input

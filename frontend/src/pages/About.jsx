@@ -1,6 +1,8 @@
 import { Target, Heart, Zap, Award, Linkedin } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import Navbar from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer';
 
 export function About() {
   const milestones = [
@@ -26,34 +28,8 @@ export function About() {
       image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjMxNjU5MzN8MA&ixlib=rb-4.1.0&q=80&w=1080',
       linkedin: '#',
     },
-    {
-      name: 'Vikram Singh',
-      role: 'Head of Product',
-      bio: 'Product leader with experience at Google and Amazon. Stanford MBA.',
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjMxNjU5MzN8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      linkedin: '#',
-    },
-    {
-      name: 'Meera Reddy',
-      role: 'Head of Design',
-      bio: 'Award-winning designer passionate about creating intuitive user experiences.',
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjMxNjU5MzN8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      linkedin: '#',
-    },
-    {
-      name: 'Rahul Gupta',
-      role: 'Head of Engineering',
-      bio: 'Full-stack expert with focus on scalable architecture and security.',
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjMxNjU5MzN8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      linkedin: '#',
-    },
-    {
-      name: 'Anjali Sharma',
-      role: 'Head of Customer Success',
-      bio: 'Customer advocate dedicated to ensuring user success and satisfaction.',
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjMxNjU5MzN8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      linkedin: '#',
-    },
+    
+    
   ];
 
   const techStack = [
@@ -89,12 +65,14 @@ export function About() {
   ];
 
   return (
+    <>
+    <Navbar/>
     <div className="bg-gray-50">
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-gray-100 to-gray-50 py-20">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-gray-900 mb-6">About FinanceAI</h1>
+            <h1 className="text-gray-900 mb-6 text-5xl">About FinanceAI</h1>
             <p className="text-gray-600">
               We're on a mission to empower individuals and businesses with intelligent financial tools that make money management effortless and insightful.
             </p>
@@ -265,5 +243,11 @@ export function About() {
         </div>
       </section>
     </div>
+    <Footer/>
+    </>
   );
 }
+
+
+
+

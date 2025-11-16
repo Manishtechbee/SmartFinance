@@ -67,7 +67,7 @@ const handleLogin = async (e) => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-lg bg-gray-50 shadow-2xl rounded-3xl p-12 md:p-16 relative">
         {/* Header */}
-        <h2 className="text-4xl font-extrabold text-gray-800 mb-3 text-center tracking-tight">
+        <h2 className="text-4xl font-bold text-gray-800 mb-3 text-center tracking-tight">
           Welcome Back
         </h2>
         <p className="text-center text-sm text-gray-600 mb-5">

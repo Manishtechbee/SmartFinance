@@ -3,6 +3,7 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer';
 
 export function Features({ navigateTo }) {
     const navigate= useNavigate();
@@ -353,6 +354,7 @@ export function Features({ navigateTo }) {
         </div>
       </section>
     </div>
+    <Footer/>
     </>
   );
 }
